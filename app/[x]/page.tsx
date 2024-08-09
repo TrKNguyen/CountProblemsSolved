@@ -9,10 +9,18 @@ const DynamicPage = ({ params }: { params: { x: string } }) => {
   const router = useRouter();
   const initialX = parseInt(params.x) || 0;
   const [currentX, setCurrentX] = useState(initialX);
+  const faviconPath = `/favicons/favicon${currentX}.ico`;
 
   useEffect(() => {
-    setCurrentX(initialX);
-  }, [initialX]);
+    // Set the dynamic favicon
+    const link =
+      document.querySelector("link[rel*='icon']") ||
+      document.createElement('link');
+    link.type = 'image/x-icon';
+    link.rel = 'icon';
+    link.href = faviconPath;
+    document.getElementsByTagName('head')[0].appendChild(link);
+  }, [faviconPath]);
 
   const handleIncrement = () => {
     const newX = (currentX + 1) % 8;
@@ -28,8 +36,7 @@ const DynamicPage = ({ params }: { params: { x: string } }) => {
     <Layout>
       <Head>
         <title>Count Problem Solved - {currentX}</title>
-        <link rel="icon" href={`/favicons/favicon${currentX}.ico`} type="image/x-icon" /> 
-      </Head> 
+      </Head>
       <main>
         <h1>Count Problem Solved</h1>
         <img src={`/logos/logo${currentX}.png`} alt={`Logo ${currentX}`} width="100" />
