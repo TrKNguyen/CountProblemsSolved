@@ -14,8 +14,8 @@ const DynamicPage = ({ params }: { params: { x: string } }) => {
   useEffect(() => {
     // Set the dynamic favicon
     const link =
-      document.querySelector("link[rel*='icon']") ||
-      document.createElement('link');
+      document.querySelector("link[rel*='icon']") as HTMLLinkElement ||
+      document.createElement('link') as HTMLLinkElement;
     link.type = 'image/x-icon';
     link.rel = 'icon';
     link.href = faviconPath;
@@ -39,8 +39,8 @@ const DynamicPage = ({ params }: { params: { x: string } }) => {
       </Head>
       <main>
         <h1>Count Problem Solved</h1>
-        <img src={`/logos/logo${currentX}.png`} alt={`Logo ${currentX}`} width="100" />
-        <img src={`/avatars/avatar${currentX}.png`} alt={`Avatar ${currentX}`} width="100" />
+        {/* <img src={`/logos/logo${currentX}.png`} alt={`Logo ${currentX}`} width="100" />
+        <img src={`/avatars/avatar${currentX}.png`} alt={`Avatar ${currentX}`} width="100" /> */}
         <div>
           <button onClick={handleDecrement}>Previous</button>
           <span>{currentX}</span>
