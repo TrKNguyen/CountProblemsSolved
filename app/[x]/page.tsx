@@ -5,16 +5,36 @@ import { useState, useEffect } from 'react';
 import Head from 'next/head';
 import Layout from '../layout';
 
+const faviconSets = [
+  {
+    prefix: 'Num',
+    extension: 'png',
+    folder: '/faviconset1',
+    count: 8,  // Number of favicons in this set (e.g., favicon0.ico to favicon1.ico)
+  },
+  {
+    prefix: 'Number',
+    extension: 'png',
+    folder: '/faviconset2',
+    count: 8,  // Number of favicons in this set (e.g., Number0.png to Number7.png)
+  },
+  // Add more sets as needed
+];
+
 const DynamicPage = ({ params }: { params: { x: string } }) => {
   const router = useRouter();
   const initialX = parseInt(params.x) || 0;
   const [currentX, setCurrentX] = useState(initialX);
-  const faviconPath = `/favicons/favicon${currentX}.ico`;
+
+  // Determine the day count and select the appropriate favicon set
+  const dayCount = (new Date().getDate() - 1) % faviconSets.length;
+  // const dayCount = 0;
+  const currentSet = faviconSets[dayCount];
+  const faviconPath = `${currentSet.folder}/${currentSet.prefix}${currentX % currentSet.count}.${currentSet.extension}`;
 
   useEffect(() => {
-    // Set the dynamic favicon
     const link =
-      document.querySelector("link[rel*='icon']") as HTMLLinkElement ||
+      (document.querySelector("link[rel*='icon']") as HTMLLinkElement) ||
       document.createElement('link') as HTMLLinkElement;
     link.type = 'image/x-icon';
     link.rel = 'icon';
@@ -23,28 +43,26 @@ const DynamicPage = ({ params }: { params: { x: string } }) => {
   }, [faviconPath]);
 
   const handleIncrement = () => {
-    const newX = (currentX + 1) % 8;
+    const newX = (currentX + 1) % currentSet.count;
     router.push(`/${newX}`);
   };
 
   const handleDecrement = () => {
-    const newX = (currentX + 7) % 8;
+    const newX = (currentX + currentSet.count - 1) % currentSet.count;
     router.push(`/${newX}`);
   };
 
   return (
     <Layout>
       <Head>
-        <title>Count Problem Solved - {currentX}</title>
+        <title>Problem Solved</title>
       </Head>
       <main>
-        <h1>Count Problem Solved</h1>
-        {/* <img src={`/logos/logo${currentX}.png`} alt={`Logo ${currentX}`} width="100" />
-        <img src={`/avatars/avatar${currentX}.png`} alt={`Avatar ${currentX}`} width="100" /> */}
+        <h1>Dynamic Favicon - Set {dayCount + 1}, Icon {currentX}</h1>
         <div>
-          <button onClick={handleDecrement}>Previous</button>
+          <button onClick={handleDecrement}>-</button>
           <span>{currentX}</span>
-          <button onClick={handleIncrement}>Next</button>
+          <button onClick={handleIncrement}>+</button>
         </div>
       </main>
     </Layout>
