@@ -62,7 +62,7 @@ const DynamicPage = ({ params }: { params: { x: string } }) => {
     setIsEditing(true);
   };
 
-  function handleKeyDown(event: KeyboardEvent): void {
+  function handleKeyDown(event: React.KeyboardEvent): void {
     if (event.key === 'Enter' || event.code === 'Enter') {
       setIsEditing(false);
       const numValue = parseInt(inputValue);
