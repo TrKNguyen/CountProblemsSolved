@@ -49,9 +49,8 @@ const DynamicPage = ({ params }: { params: { x: string } }) => {
     const value = event.target.value;
     console.log(value);
     setInputValue(event.target.value);
-    setCurrentX(value);
     const numValue = parseInt(value);
-    // if (numValue >=0 && numValue <= 7) router.push(`/${value}`);
+    if (numValue >=0 && numValue <= 7) setCurrentX(value);
   };
 
   const handleBlur = () => {
