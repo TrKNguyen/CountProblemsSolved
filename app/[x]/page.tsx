@@ -87,7 +87,7 @@ const DynamicPage = ({ params }: { params: { x: string } }) => {
               <Earth />
             </VariantsComponent>
           </div>
-          <div className="flex flex-col w-full lg:w-1/2 justify-center px-4 md:px-16 max-w-screen-2xl mx-auto" style={{ marginTop: '-120px' }}>
+          <div className="flex flex-col w-full lg:w-1/2 justify-center px-4 md:px-16 max-w-screen-2xl mx-auto" style={{ marginTop: '-160px' }}>
             <p style={{ fontFamily: 'Courier New, Courier, monospace'}} className="text-primary text-6xl">{"/// Salary 5kkkk"}</p>
             <div style={{ fontFamily: 'Courier New, Courier, monospace', fontSize: '14px', lineHeight: '10' }}>
               <span className="text-6xl" >{"/// goal"} </span>
